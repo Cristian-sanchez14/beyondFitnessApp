@@ -1,18 +1,19 @@
-import {ScrollView, StyleSheet} from 'react-native';
-import FeedPost from './src/components/FeedPost';
+/* eslint-disable react/react-in-jsx-scope */
+import {View, StyleSheet} from 'react-native';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 
 const App = () => {
   return (
-    <ScrollView style={styles.app}>
-      <FeedPost />
-      <FeedPost />
-    </ScrollView>
+    <View style={styles.app}>
+      <HomeScreen />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   app: {
     flex: 1,
+    paddingTop: 35,
   },
 });
 
