@@ -16,7 +16,7 @@ interface ICarousel {
   onDoublePress: () => void;
 }
 
-const Carousel = ({images, onDoublePress}: ICarousel) => { 
+const Carousel = ({images, onDoublePress}: ICarousel) => {
   // <---- ADDED HERE THE `onDoublePress` PROPS
   const [activeImageIndex, setActiveImageIndex] = useState(1);
 

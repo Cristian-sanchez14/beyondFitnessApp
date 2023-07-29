@@ -1,6 +1,5 @@
-/* eslint-disable react/react-in-jsx-scope */
 import {useState} from 'react';
-import {View, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Video from 'react-native-video';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../theme/colors';
