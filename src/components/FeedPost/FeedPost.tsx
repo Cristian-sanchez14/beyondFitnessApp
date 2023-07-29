@@ -1,17 +1,24 @@
 import {useState} from 'react';
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  LayoutAnimation,
+  Image,
+  Pressable,
+  Platform,
+  UIManager,
+} from 'react-native';
 import colors from '../../theme/colors';
-import fonts from '../../theme/fonts';
 import Comment from '../Comment';
-import DoublePressable from '../DoublePressable';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import styles from './styles';
 import {IPost} from '../../types/models';
-import {isVoidTypeAnnotation} from '@babel/types';
+import DoublePressable from '../DoublePressable';
+import Carousel from '../Carousel';
+
 
 interface IFeedPost {
   post: IPost;
@@ -19,17 +26,33 @@ interface IFeedPost {
 
 const FeedPost = (props: IFeedPost) => {
   const {post} = props;
-
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(true);
-
-  const toggleDescriptionExpanded = () => {
-    setIsDescriptionExpanded(existingValue => !existingValue);
-  };
 
   const toggleLike = () => {
     setIsLiked(v => !v);
   };
+
+  const toggleDescriptionExpanded = () => {
+    setIsDescriptionExpanded(existingValue => !existingValue);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+  };
+
+  let content;
+  if (post.image) { /// HERE
+    content = (
+      <DoublePressable onDoublePress={toggleLike}>
+        <Image
+          source={{
+            uri: post.image,
+          }}
+          style={styles.image}
+        />
+      </DoublePressable>
+    );
+  } else if (post.images) {
+    content = <Carousel images={post.images} onDoublePress={toggleLike} />;
+  }
 
   return (
     <View style={styles.post}>
@@ -51,14 +74,7 @@ const FeedPost = (props: IFeedPost) => {
       </View>
 
       {/* Content */}
-      <DoublePressable onDoublePress={toggleLike}>
-        <Image
-          source={{
-            uri: post.image,
-          }}
-          style={styles.image}
-        />
-      </DoublePressable>
+      {content}
 
       {/* Footer */}
       <View style={styles.footer}>
@@ -71,6 +87,7 @@ const FeedPost = (props: IFeedPost) => {
               color={isLiked ? colors.accent : colors.black}
             />
           </Pressable>
+
           <Ionicons
             name="chatbubble-outline"
             size={24}
@@ -103,6 +120,7 @@ const FeedPost = (props: IFeedPost) => {
           <Text style={styles.bold}>{post.user.username}</Text>{' '}
           {post.description}
         </Text>
+
         <Text onPress={toggleDescriptionExpanded}>
           {isDescriptionExpanded ? 'less' : 'more'}
         </Text>
