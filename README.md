@@ -12,3 +12,8 @@
    - npx pod-install ios 
    - run the app on an iOS device/simulator
    - npm run ios
+
+6415bd437
+b6dd8fd5a
+b0e6dbcde
+c4076e4ec
