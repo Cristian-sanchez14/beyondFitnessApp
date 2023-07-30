@@ -1,7 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {useState} from 'react';
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import colors from '../../theme/colors';
-import fonts from '../../theme/fonts';
 import Comment from '../Comment';
 import DoublePressable from '../DoublePressable';
 import Carousel from '../Carousel';
@@ -13,7 +13,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 import {IPost} from '../../types/models';
-import {isVoidTypeAnnotation} from '@babel/types';
 
 interface IFeedPost {
   post: IPost;
@@ -122,7 +121,7 @@ const FeedPost = (props: IFeedPost) => {
         {/* Comments */}
         <Text>View all {post.nofComments} comments</Text>
         {post.comments.map(comment => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} includeDetails={false} />
         ))}
 
         {/* Posted date */}
